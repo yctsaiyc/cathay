@@ -2,34 +2,30 @@ class Solution:
 
     def longestCommonPrefix(strings):
         
-        prefixCounts = {}
-        
-        for string in strings:
-            if string[0] not in prefixCounts:
-                prefixCounts[string[0]] = 1
-            else:
-                prefixCounts[string[0]] += 1
-        
-        ans = "a"
-        
-        for prefix in prefixCounts:
-            if prefixCounts[prefix] > prefixCounts[ans]:
-                ans = prefix
+        commonPrefix = ""
 
-        print("prefixCounts: ", prefixCounts)
-        print("CommonPrefix: ", ans)
+        # 檢查第一個字串的第i個字元
+        for i, char in enumerate(strings[0]):
+        
+            # 和其他字串的第i個字元比對
+            for string in strings:
+                
+                # 若有字串無第i個字元
+                # 或有相異字元出現，則回傳
+                if i == len(string) or char != string[i]:
+                    return commonPrefix
 
-        return 0
+            # 若無相異字元，代表所有字串的第i個字元都相同，即為common prefix
+            commonPrefix += char
+
+        return commonPrefix
+            
 
 
 strings = []
-            
 while True:
     string = input("Enter a string: ")
-
-    if len(string) > 0:
-        strings.append(string)
-    else:
+    if len(string) == 0:
         break
-
-Solution.longestCommonPrefix(strings)
+    strings.append(string)
+print("Longest common prefix: ", Solution.longestCommonPrefix(strings))
